@@ -10,8 +10,13 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Load & Cache dependencies
+        id: cache-deps
         # uses: swapon-ahamed/my-action
         uses: ./.github/actions/cached-deps
+        with:
+          caching: 'false'
+      - name: Output information
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Lint code
         run: npm run lint
         
